@@ -1,5 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+/**
+ * Aquesta classe s'encarrega de gestionar les preferències de l'usuari.
+ * Hi ah els seus getters i setters.
+ */
 class Preferences {
   static late SharedPreferences _prefs;
 

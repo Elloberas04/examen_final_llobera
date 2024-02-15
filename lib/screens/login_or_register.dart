@@ -16,6 +16,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+// Comprovam inicialment si l'usuari ja ha fet login o si ha marcat la casella de recordar les credencials.
   @override
   void initState() {
     super.initState();
@@ -24,6 +25,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
         Navigator.of(context).pushNamed('home');
       }
     });
+    // Incialitzem les controllers
     _passwordController.text = Preferences.password;
     _emailController.text = Preferences.email;
   }
@@ -43,6 +45,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
     );
   }
 
+// Cream el formurlari.
   Widget loginOrRegisterForm(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -105,6 +108,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
                   controlAffinity: ListTileControlAffinity.leading,
                 ),
                 IconButton(
+                  // Si la casella esta marcada, guardam les dades a Preferences i sino les esborram.
                   onPressed: () => {
                     if (_isChecked)
                       {
@@ -118,6 +122,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
                         Preferences.password = '',
                         Preferences.remember = _isChecked,
                       },
+                    //Indiquem que l'usuari ha fet login i el redirigim a la pantalla principal.
                     Preferences.loginDone = true,
                     Navigator.of(context).pushNamed('home'),
                   },

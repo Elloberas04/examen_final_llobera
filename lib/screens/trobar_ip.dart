@@ -2,6 +2,7 @@ import 'package:examen_final_llobera/models/ip_info.dart';
 import 'package:examen_final_llobera/providers/trobar_ip_provider.dart';
 import 'package:flutter/material.dart';
 
+// Pestanya amb un boto per trobar la IP de l'usuari i la seva localització.
 class TorbarIP extends StatelessWidget {
   const TorbarIP({super.key});
 
