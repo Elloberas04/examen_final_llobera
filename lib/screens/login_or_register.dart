@@ -19,9 +19,11 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
   @override
   void initState() {
     super.initState();
-    if (Preferences.loginFet) {
-      Navigator.of(context).pushReplacementNamed('home');
-    }
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (Preferences.loginDone || Preferences.remember) {
+        Navigator.of(context).pushNamed('home');
+      }
+    });
     _passwordController.text = Preferences.password;
     _emailController.text = Preferences.email;
   }
@@ -33,7 +35,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            loginOrRegisterForm(),
+            loginOrRegisterForm(context),
             const SizedBox(height: 100),
           ],
         ),
@@ -41,7 +43,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
     );
   }
 
-  Widget loginOrRegisterForm() {
+  Widget loginOrRegisterForm(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -116,7 +118,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
                         Preferences.password = '',
                         Preferences.remember = _isChecked,
                       },
-                    Preferences.loginFet = true,
+                    Preferences.loginDone = true,
                     Navigator.of(context).pushNamed('home'),
                   },
                   icon: Icon(

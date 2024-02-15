@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../ui/input_decorations.dart';
 
 class DetailScreen extends StatelessWidget {
-  DetailScreen({Key? key}) : super(key: key);
+  const DetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _UserForm extends StatefulWidget {
 class _UserFormState extends State<_UserForm> {
   @override
   Widget build(BuildContext context) {
-    final userForm = Provider.of<TreeService>(context);
+    final userForm = Provider.of<TreeService>(context, listen: false);
     final tempUser = userForm.tempUser;
 
     return Padding(

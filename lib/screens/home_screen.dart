@@ -6,6 +6,10 @@ import 'package:examen_final_llobera/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
+/**
+ * Dins d'aquesta classe es mostra el llistat d'arbres, i es permet
+ * afegir-ne de nous, modificar-ne o esborrar-ne.
+ */
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -16,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    // Obtenim el provider del TreeService
     final userService = Provider.of<TreeService>(context);
     List<Tree> usuaris = userService.users;
     return Scaffold(
@@ -23,15 +28,24 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         title: Text('Llistat arbres'),
         actions: [
+          // Botó per tancar sessió
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
               Preferences.loginDone = false;
-              Navigator.pushNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+          // Botó per trobar la IP
+          IconButton(
+            icon: Icon(Icons.network_cell),
+            onPressed: () {
+              Navigator.pushNamed(context, 'trobar_ip');
             },
           ),
         ],
       ),
+      // Si no hi ha usuaris, mostrem un cercle de carrega
       body: usuaris.isEmpty
           ? Loading()
           : ListView.builder(
@@ -51,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: GestureDetector(
                     child: UserCard(usuari: usuaris[index]),
                     onTap: () {
+                      // Navegam a la pestanya de detalls
                       userService.tempUser = usuaris[index].copy();
                       Navigator.of(context).pushNamed('detail');
                     },
